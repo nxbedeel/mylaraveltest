@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class GalaryTableSeeder extends Seeder
+class AlbumTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class GalaryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('galary')->insert([
+        DB::table('albums')->insert([
             'name' => str_random(10),
             'desctiprion' => str_random(20),
             'cat_id' => rand(1, 5),

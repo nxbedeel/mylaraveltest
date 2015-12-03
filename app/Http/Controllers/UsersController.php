@@ -1,13 +1,18 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\User;
+use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class UserController extends Controller
+use Request;
+//use App\Http\Controllers\Controller;
+
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,6 +32,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('users.create');
     }
 
     /**
@@ -38,6 +44,22 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $input = Request::all();
+        $input['user_type'] = 'Client';
+       try {
+          // ...
+            User::create($input);
+            $mesg = "User created SuccessFully ";
+
+        } catch ( \Illuminate\Database\QueryException $e) {
+            var_dump($e->errorInfo );
+            $mesg = "Insertion Fail";
+        }
+
+        
+       
+       
+        return $mesg ;
     }
 
     /**
@@ -46,9 +68,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
+        //exit("i am at show");
         //
+        $data = User::get();
+        return view('users.list', ['users' => $data]);
+       // $users = User->get();
     }
 
     /**

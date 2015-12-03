@@ -6,9 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CategoryTableSeeder' => $baseDir . '/database/seeds/CategoryTableSeeder.php',
-    'CreateCategoryTable' => $baseDir . '/database/migrations/2015_12_02_003032_create_category_table.php',
-    'CreateGalaryTable' => $baseDir . '/database/migrations/2015_12_02_003115_create_galary_table.php',
+    'AlbumTableSeeder' => $baseDir . '/database/seeds/AlbumTableSeeder.php',
+    'AlbumType' => $baseDir . '/database/migrations/2015_12_02_203328_AlbumType.php',
+    'AlbumtypeTableSeeder' => $baseDir . '/database/seeds/AlbumtypeTableSeeder.php',
+    'CreateAlbumTable' => $baseDir . '/database/migrations/2015_12_02_003115_create_album_table.php',
+    'CreateAlbumsTable' => $baseDir . '/database/migrations/2015_12_02_234703_create_albums_table.php',
     'CreateImagesTable' => $baseDir . '/database/migrations/2015_12_02_003141_create_images_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
@@ -16,7 +18,6 @@ return array(
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
-    'GalaryTableSeeder' => $baseDir . '/database/seeds/GalaryTableSeeder.php',
     'Hamcrest\\Arrays\\IsArray' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
     'Hamcrest\\Arrays\\IsArrayContaining' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
     'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',

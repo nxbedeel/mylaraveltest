@@ -19,11 +19,13 @@ class CreateImagesTable extends Migration
                 $table->bigIncrements('id');
                 $table->string('name');
                 $table->string('size');
+                $table->string('title');
+                $table->string('tag');
                 $table->string('url');
                 $table->enum('status', ['Public','Private']);
-                $table->integer('galary_id')->unsigned();
+                $table->bigInteger('album_id')->unsigned();
                 $table->timestamps();
-                $table->foreign('galary_id')->references('id')->on('galary');
+                $table->foreign('album_id')->references('id')->on('albums');
             });
         }
     }
@@ -35,6 +37,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('iamges');
+        Schema::drop('images');
     }
 }

@@ -64,10 +64,6 @@ Route::get('/contact/{id}', function($id)
 
 Route::get('/about/{id}/{name}','AdminController@about' );
 
-//Route::get('/about/{id}', function($id)
-//{
-//    return "User Name is missing for id  =".$id;
-//});
 Route::get('/about/{name}', function($name)
 {
     return "User ID is missing  for user :".$name;
@@ -76,6 +72,9 @@ Route::get('/about', function()
 {
     return "User Name And ID is missing  :";
 });
+Route::get('/signup/','UsersController@create' );
+Route::post('/signup/','UsersController@store' );
+Route::get('/listuser/','UsersController@show' );
 //Route::get('/contact/{name}', ['middleware' => 'before:editor', function ($name) {
 //    //
 //}]);

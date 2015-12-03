@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGalaryTable extends Migration
+class CreateAlbumTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,15 @@ class CreateGalaryTable extends Migration
      */
     public function up()
     {
-          if (Schema::hasTable('galary')) {
+          if (Schema::hasTable('albums')) {
               // do nothing 
              
           }else{
-               Schema::create('galary', function (Blueprint $table) {
+               Schema::create('albums', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name');
                 $table->string('desctiprion');
-                $table->bigInteger('cat_id');
                 $table->timestamps();
-               // $table->foreign('cat_id')->references('id')->on('category');
             });
           }
         
@@ -35,6 +33,6 @@ class CreateGalaryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('galary');
+        Schema::drop('albums');
     }
 }
