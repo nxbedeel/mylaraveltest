@@ -5,8 +5,18 @@
 @section('container')   
 
     <div class="jumbotron">
-    <h1>My First Bootstrap Form</h1>
-    <p>This page to use to create new user !</p> 
+    <h1>Register User</h1>
+    <p>Sign up page !</p> 
+    @if (count($errors) > 0)
+   
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     {!! Form::open() !!}
     <div class="form-group">
          {!! Form::label('name','Name:') !!}
@@ -19,6 +29,10 @@
     <div class="form-group">
          {!! Form::label('password','Password:') !!}
          {!! Form::password('password',['class'=>'form-control']) !!}
+    </div>
+    <div class="form-group">
+         {!! Form::label('password_confirmation','Confirm Password:') !!}
+         {!! Form::password('password_confirmation',['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
          {!! Form::submit('submit',['class'=>'btn btn-primary  ']) !!}

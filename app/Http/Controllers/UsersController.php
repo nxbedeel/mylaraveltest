@@ -3,12 +3,18 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\User;
+use Mail;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
+use App\Http\Requests;
+use App\Http\Requests\CreateUser;
+use App\Http\Requests\ConfirmUser;
+//use App\Http\Requests\User;
+use Illuminate\Validation;
 use Request;
 //use App\Http\Controllers\Controller;
 
@@ -41,25 +47,28 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUser $request)
     {
         //
-        $input = Request::all();
+        $input = $request->all();
         $input['user_type'] = 'Client';
+        $input['remember_token'] = base64_encode($input['email']);
        try {
           // ...
-            User::create($input);
-            $mesg = "User created SuccessFully ";
+             $user = User::create($input);
+             $insertedId = $user->id;
+
+            // send email
+             Mail::send('emails.welcomemsg', ['user' => $user], function ($m) use ($user) {
+                 $m->from('adeel.islam@nxb.com.pk', 'Your Application');
+                 $m->to($user->email, $user->name)->subject('Your Reminder!');
+             });
+             return redirect('/confirm');
 
         } catch ( \Illuminate\Database\QueryException $e) {
-            var_dump($e->errorInfo );
-            $mesg = "Insertion Fail";
+          
+            $mesg = "Insertion Fail";exit;
         }
-
-        
-       
-       
-        return $mesg ;
     }
 
     /**
@@ -87,7 +96,34 @@ class UsersController extends Controller
     {
         //
     }
-
+   
+    public function confirm()
+    {
+        //
+        return view('users.confirm');
+    }
+    public function confirmcode()
+    {
+        $input = Request::all();
+        //
+        $validator = Validator::make($input, [
+            'code' => 'required',
+        ]);
+        $data = User::get()->where('remember_token', $input['code'])->first();
+        
+        if (!$data) {
+            $validator->errors()->add('code', 'Invalid code entered!');
+            return redirect('/confirm')
+                        ->withErrors($validator)
+                        ->withInput();
+        }  else {
+            $data->status = 1;
+            $data->save();
+            Session::put('userinfo', $data);
+            return redirect('/profile');
+            //exit ("validated successfully");
+        }
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -98,6 +134,17 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+    public function profile()
+    {
+        //
+        $value = Session::get('userinfo', 'default');
+        if($value){
+          return view('users.profile', ['user' => $value]);
+        }else{
+           return redirect('/welcome');
+        }
+        
     }
 
     /**

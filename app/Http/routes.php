@@ -73,12 +73,13 @@ Route::get('/about', function()
     return "User Name And ID is missing  :";
 });
 Route::get('/signup/','UsersController@create' );
-Route::post('/signup/','UsersController@store' );
-Route::get('/listuser/','UsersController@show' );
-//Route::get('/contact/{name}', ['middleware' => 'before:editor', function ($name) {
-//    //
-//}]);
 
+Route::get('/confirm/','UsersController@confirm' );
+Route::post('/signup/','UsersController@store' );
+Route::post('/confirm/','UsersController@confirmcode' );
+Route::get('/listuser/','UsersController@show' );
+Route::get('/listuser/','UsersController@show' );
+Route::get('/profile','UsersController@profile' );
 Route::group(['middleware' => 'before:true'], function () {
    Route::get('/about/{id}/{name}','AdminController@about' );
 });
