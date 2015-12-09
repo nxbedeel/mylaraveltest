@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Session;
 use App\User;
 use Mail;
+use Auth;
+use Hash;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -25,6 +27,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function _construct(){
+        $this->middleware('auth'); 
+    }
     public function index()
     {
         //
@@ -40,7 +45,12 @@ class UsersController extends Controller
         //
         return view('users.create');
     }
-
+    public function registrationsuccess()
+    {
+        //
+        return view('users.registrationsuccess');
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -53,16 +63,17 @@ class UsersController extends Controller
         $input = $request->all();
         $input['user_type'] = 'Client';
         $input['remember_token'] = base64_encode($input['email']);
+        $input['password'] = Hash::make($input['password']);
        try {
           // ...
              $user = User::create($input);
              $insertedId = $user->id;
 
             // send email
-             Mail::send('emails.welcomemsg', ['user' => $user], function ($m) use ($user) {
-                 $m->from('adeel.islam@nxb.com.pk', 'Your Application');
-                 $m->to($user->email, $user->name)->subject('Your Reminder!');
-             });
+//             Mail::send('emails.welcomemsg', ['user' => $user], function ($m) use ($user) {
+//                 $m->from('adeel.islam@nxb.com.pk', 'Your Application');
+//                 $m->to($user->email, $user->name)->subject('Your Reminder!');
+//             });
              return redirect('/confirm');
 
         } catch ( \Illuminate\Database\QueryException $e) {
@@ -119,8 +130,9 @@ class UsersController extends Controller
         }  else {
             $data->status = 1;
             $data->save();
-            Session::put('userinfo', $data);
-            return redirect('/profile');
+            
+//            Session::put('userinfo', $data);
+            return redirect('/registrationsuccess');
             //exit ("validated successfully");
         }
     }
@@ -138,12 +150,13 @@ class UsersController extends Controller
     public function profile()
     {
         //
-        $value = Session::get('userinfo', 'default');
-        if($value){
+        $value = Auth::user();
+       // var_dump($value);exit;
+   //     if($value){
           return view('users.profile', ['user' => $value]);
-        }else{
-           return redirect('/welcome');
-        }
+//        }else{
+//           return redirect('/');
+//        }
         
     }
 

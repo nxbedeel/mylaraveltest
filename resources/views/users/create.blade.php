@@ -3,7 +3,19 @@
 <?php echo "My Image galary Sign up page " ?>
 @stop
 @section('container')   
-
+ <nav class="navbar navbar-default">
+        <div class="container-fluid">
+                <div class="navbar-header">
+                  <a class="navbar-brand" href="#">Image gallery</a>
+                </div>
+                <div>
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/auth/login">login</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
     <div class="jumbotron">
     <h1>Register User</h1>
     <p>Sign up page !</p> 
@@ -38,8 +50,9 @@
          {!! Form::submit('submit',['class'=>'btn btn-primary  ']) !!}
     </div>
     {!! Form::close() !!}
+    <p><a href="/auth/login">Already registred ? click here </a></p>
   </div>
-  
+
 @stop
 @section('content')
 @stop

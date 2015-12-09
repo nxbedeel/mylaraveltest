@@ -79,7 +79,18 @@ Route::post('/signup/','UsersController@store' );
 Route::post('/confirm/','UsersController@confirmcode' );
 Route::get('/listuser/','UsersController@show' );
 Route::get('/listuser/','UsersController@show' );
-Route::get('/profile','UsersController@profile' );
+Route::get('/registrationsuccess/','UsersController@registrationsuccess' );
 Route::group(['middleware' => 'before:true'], function () {
    Route::get('/about/{id}/{name}','AdminController@about' );
 });
+Route::group(['middleware' => 'auth'], function () {
+  Route::get('/profile','UsersController@profile' );
+  Route::get('/home','UsersController@profile' );
+});
+post('auth/login', array('as' => 'login', 'uses' => 'Auth\AuthController@authenticate'));
+Route::Controllers([
+        
+       'auth'=> 'Auth\AuthController',
+       'password'=> 'Auth\PasswordController',
+        
+]);
