@@ -86,6 +86,8 @@ Route::group(['middleware' => 'before:true'], function () {
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/profile','UsersController@profile' );
   Route::get('/home','UsersController@profile' );
+  Route::get('/user/changepassword','UsersController@changepassword' );
+  Route::post('/user/changepassword','UsersController@postchangepassword' );
 });
 post('auth/login', array('as' => 'login', 'uses' => 'Auth\AuthController@authenticate'));
 Route::Controllers([

@@ -15,7 +15,9 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\Http\Requests;
 use App\Http\Requests\CreateUser;
 use App\Http\Requests\ConfirmUser;
+use App\Http\Requests\ChangePassword;
 //use App\Http\Requests\User;
+
 use Illuminate\Validation;
 use Request;
 //use App\Http\Controllers\Controller;
@@ -45,6 +47,42 @@ class UsersController extends Controller
         //
         return view('users.create');
     }
+    public function changepassword()
+    {
+        //
+        return view('users.changepassword');
+    }
+    public function postchangepassword()
+    {
+        //
+          $input = Request::all();
+         $validator = Validator::make($input, [
+            'oldpassword' => 'required|min:6',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6'
+        ]);
+
+      
+        $userDate = Auth::user();
+        $data = User::get()->where('id', $userDate->id)->first();
+        
+         $auth = \Auth::attempt( array(
+            'email' => $data->email,
+            'password' => $input['oldpassword']   
+            )); //, $remember
+        if($auth) {
+           $data->password = Hash::make($input['password']);
+            $data->save();
+            
+           return redirect('/profile')->with('status', "Password Changed Successfully");
+        } else {
+            $validator->errors()->add('code', 'password not match with old!');
+            return redirect('/user/changepassword')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        
+    }
     public function registrationsuccess()
     {
         //
@@ -64,6 +102,7 @@ class UsersController extends Controller
         $input['user_type'] = 'Client';
         $input['remember_token'] = base64_encode($input['email']);
         $input['password'] = Hash::make($input['password']);
+      
        try {
           // ...
              $user = User::create($input);

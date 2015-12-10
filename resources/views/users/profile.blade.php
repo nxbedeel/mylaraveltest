@@ -1,9 +1,4 @@
-<style>
- 
-            .title {
-                font-size: 96px;
-            }
-        </style>
+
         
 @extends('app')      
 @section('pagetitle')
@@ -18,12 +13,19 @@
                 <div>
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="/">Home</a></li>
-                    <li><a href="/auth/logout">logout</a></li>
+                    <li><a href="/auth/logout">Logout</a></li>
+                    <li><a href="/user/changepassword">Change Password</a></li>
+                    
                   </ul>
                 </div>
               </div>
             </nav>
 <div class="content">
+  @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
                 <div class="title">Welcome <?php echo $user->name; ?></div>
             </div>
 @stop

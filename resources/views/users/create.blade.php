@@ -17,8 +17,11 @@
               </div>
             </nav>
     <div class="jumbotron">
-    <h1>Register User</h1>
-    <p>Sign up page !</p> 
+    <h2 style="border-bottom: 1px solid #c5c5c5;">
+    <i class="glyphicon glyphicon-user">
+    </i>
+    Register User
+  </h2>
     @if (count($errors) > 0)
    
     <div class="alert alert-danger">
@@ -31,20 +34,31 @@
 @endif
     {!! Form::open() !!}
     <div class="form-group">
-         {!! Form::label('name','Name:') !!}
-         {!! Form::text('name',null,['class'=>'form-control']) !!}
-    </div>
+         {!! Form::label('name','Name:') !!}         
+        <div class="input-group">                        
+            {!! Form::text('name',null,['class'=>'form-control','required','placeholder'=>'Enter Name ..']) !!}
+            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+        </div>
     <div class="form-group">
          {!! Form::label('email','Email:') !!}
-         {!! Form::text('email',null,['class'=>'form-control','Enter  your Email Address ..']) !!}
+          <div class="input-group">  
+             {!! Form::text('email',null,['class'=>'form-control','required','placeholder'=>'Enter  your Email Address ..']) !!}
+             <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+          </div>
     </div>
     <div class="form-group">
          {!! Form::label('password','Password:') !!}
-         {!! Form::password('password',['class'=>'form-control']) !!}
+         <div class="input-group">  
+             {!! Form::password('password',['class'=>'form-control']) !!}
+             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+         </div>
     </div>
     <div class="form-group">
          {!! Form::label('password_confirmation','Confirm Password:') !!}
-         {!! Form::password('password_confirmation',['class'=>'form-control']) !!}
+         <div class="input-group"> 
+             {!! Form::password('password_confirmation',['class'=>'form-control']) !!}
+             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+         </div>
     </div>
     <div class="form-group">
          {!! Form::submit('submit',['class'=>'btn btn-primary  ']) !!}
