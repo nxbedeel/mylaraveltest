@@ -87,8 +87,13 @@
         <!--        <div class="col-sm-6 col-md-4 col-md-offset-4">-->
 
                     <div class="account-wall">
+                         @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         @if (count($errors) > 0)
-
+                        
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)

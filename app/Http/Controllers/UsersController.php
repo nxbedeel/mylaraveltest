@@ -74,7 +74,7 @@ class UsersController extends Controller
            $data->password = Hash::make($input['password']);
             $data->save();
             
-           return redirect('/profile')->with('status', "Password Changed Successfully");
+           return redirect('/dashboard')->with('status', "Password Changed Successfully");
         } else {
             $validator->errors()->add('code', 'password not match with old!');
             return redirect('/user/changepassword')
@@ -109,10 +109,10 @@ class UsersController extends Controller
              $insertedId = $user->id;
 
             // send email
-//             Mail::send('emails.welcomemsg', ['user' => $user], function ($m) use ($user) {
-//                 $m->from('adeel.islam@nxb.com.pk', 'Your Application');
-//                 $m->to($user->email, $user->name)->subject('Your Reminder!');
-//             });
+             Mail::send('emails.welcomemsg', ['user' => $user], function ($m) use ($user) {
+                 $m->from('adeel.islam@nxb.com.pk', 'Your Application');
+                 $m->to($user->email, $user->name)->subject('Your Reminder!');
+             });
              return redirect('/confirm');
 
         } catch ( \Illuminate\Database\QueryException $e) {
@@ -127,11 +127,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($type='')
     {
-        //exit("i am at show");
         //
-        $data = User::get();
+        $data = array();
+        if($type =='active'){
+            $data = User::where('status',1)->get();
+        }elseif($type =='inactive'){
+            $data = User::where('status',0)->get();
+        }else{
+            $data = User::get();
+        }
+      //  $data = User::get();
         return view('users.list', ['users' => $data]);
        // $users = User->get();
     }
@@ -145,6 +152,8 @@ class UsersController extends Controller
     public function edit($id)
     {
         //
+        $data = User::find($id);
+         return view('users.edit', ['user' => $data]);
     }
    
     public function confirm()
@@ -171,7 +180,7 @@ class UsersController extends Controller
             $data->save();
             
 //            Session::put('userinfo', $data);
-            return redirect('/registrationsuccess');
+            return redirect('/auth/login')->with('status', "User is created  successfully please login here and get startes ");
             //exit ("validated successfully");
         }
     }
@@ -189,14 +198,8 @@ class UsersController extends Controller
     public function profile()
     {
         //
-        $value = Auth::user();
-       // var_dump($value);exit;
-   //     if($value){
+          $value = Auth::user();
           return view('users.profile', ['user' => $value]);
-//        }else{
-//           return redirect('/');
-//        }
-        
     }
 
     /**
@@ -207,6 +210,30 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+        $isdelete  = User::where('id', $id)->delete();
+        //if($isdelete){
+            return redirect('/user/list')->with('status', "User Removed  Successfully");
+       // }
+        
         //
     }
+    
+    public function changestatus($cstatus='',$id='')
+    {
+//      /  exit ($id);
+        $data = User::find($id);
+//        var_dump($data);
+//                exit ();
+        if($cstatus=='Inactive'){
+            $data->status = 0;
+            $data->save();
+            return redirect('/user/list')->with('status', "Status Changed  Successfully");
+        }elseif($cstatus=='Active'){
+            $data->status = 1;
+            $data->save();
+            return redirect('/user/list')->with('status', "Status Changed  Successfully");
+        }
+        
+    }
+    
 }

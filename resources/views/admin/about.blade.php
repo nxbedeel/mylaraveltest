@@ -12,35 +12,19 @@
 | 5. Use if ocndition to display data i.e if skills and books  have some count  only then it will display data
 */
 ?>
-@extends('app')
+@extends('adminapp')
 @section('pagetitle')
     Its All  About user  {{ $fname }} {{ $lname }}
 @stop
-@section('content')
-<h2>Welcome {{ $fname }} {{ $lname }}</h2>                
-                <h3>Your User Id: {{ $id }} </h3>
-               
-                <u>
-                    @foreach($data as $user)
-                    <li> {{ $user }} </li>
-                    @endforeach
-                </u>
-                @if(count($skills))
-                 <h4>Skills</h4>
-                <u>
-                   
-                    @foreach($skills as $sklill)
-                    <li> {{ $sklill }} </li>
-                    @endforeach
-                </u> 
-                 @endif
-                   @if(count($bookforlanguage))
-                <u>
-                    <h4>Books</h4>
-                   
-                    @foreach($bookforlanguage as $language)
-                    <li> {{ $language }} </li>
-                    @endforeach
-                </u> 
-                    @endif
+
+@section('contant')
+   <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Welcome {{ $fname }} {{ $lname }}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+</div>
+            <!-- /.row -->
 @stop
+

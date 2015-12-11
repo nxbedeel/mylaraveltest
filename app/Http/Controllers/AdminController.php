@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -55,7 +56,23 @@ class AdminController extends Controller
     {
         //
     }
-
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard()
+    {
+        //
+        
+         $usercount = User::all()->count();
+         $activecount = User::where('status', '=', 1)->count();
+        return view('admin.dashboard')->with(['usercount'=>$usercount,'activeuser'=>$activecount,'fname'=>'Muhammad Adeel ']);;
+    }
+    
+    
+    
     /**
      * Store a newly created resource in storage.
      *

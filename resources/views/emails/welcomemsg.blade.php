@@ -10,7 +10,7 @@ and open the template in the editor.
     </head>
     <body>
         <p><strong>Welcome <?php echo $user->name; ?></strong></p>
-         <p>Your one time user verification Code is <strong>Welcome <?php echo $user->remember_token; ?></strong></p> 
+         <p>Your one time user verification Code is <strong><?php echo $user->remember_token; ?></strong></p> 
          
     </body>
 </html>

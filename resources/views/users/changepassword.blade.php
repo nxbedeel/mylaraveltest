@@ -1,8 +1,9 @@
-@extends('app')      
+@extends('adminapp')      
 @section('pagetitle')
 <?php echo "Welcome to Change password  page " ?>
 @stop
-@section('container')  
+@section('content')  
+<div class="row">
 <div id="login-overlay" class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
@@ -53,7 +54,5 @@
         </div>
       </div>
     </div>
-  
-@stop
-@section('content')
+    </div>
 @stop
