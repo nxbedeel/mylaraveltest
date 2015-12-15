@@ -82,19 +82,21 @@ Route::post('/confirm/','UsersController@confirmcode' );
 
 Route::get('/listuser/','UsersController@show' );
 Route::get('/registrationsuccess/','UsersController@registrationsuccess' );
+Route::resource('user','UsersController');
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/user/list/','UsersController@show' );
   Route::get('/user/delete/{id}','UsersController@destroy' );
   Route::get('/user/edit/{id}','UsersController@edit' );
-  Route::post('/user/edit/','UsersController@store' );
   Route::get('/user/changestatus/{cstatus}/{id}','UsersController@changestatus' );
   Route::get('/user/list/{type}','UsersController@show' );
   Route::get('/dashboard','AdminController@dashboard' );
   Route::get('/profile','UsersController@profile' );
   Route::get('/home','AdminController@dashboard' );
-  Route::get('/user/changepassword','UsersController@changepassword' );
-  Route::post('/user/changepassword','UsersController@postchangepassword' );
+  Route::get('/users/changepassword','UsersController@changepassword' );
+  Route::post('/users/changepassword','UsersController@postchangepassword' );
+   Route::post('/users/pupload','UsersController@pupload' );
 });
+
 post('auth/login', array('as' => 'login', 'uses' => 'Auth\AuthController@authenticate'));
 Route::Controllers([
         

@@ -20,16 +20,18 @@
     </div>
 @endif
 
-    {!! Form::open() !!}
+
+    {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user->id]]) !!}
     <div class="form-group">
          {!! Form::label('name','Name:') !!}         
         <div class="input-group">                        
             {!! Form::text('name',null,['class'=>'form-control','required','placeholder'=>'Enter Name ..']) !!}
             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
         </div>
-    
+     </div>
     <div class="form-group">
-         {!! Form::submit('submit',['class'=>'btn btn-primary  ']) !!}
+         {!! Form::submit('Update',['class'=>'btn btn-primary  ']) !!}
+         <a href = "{{URL::previous()}}" class = 'btn btn-warning'>Cancel</a>
     </div>
     {!! Form::close() !!}
    

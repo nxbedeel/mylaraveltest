@@ -52,6 +52,27 @@ class UsersController extends Controller
         //
         return view('users.changepassword');
     }
+    
+    public function pupload(\Request $request){
+        
+      // Images destination
+        $img_dir = "uploads/images/" . date("mY");
+        $img_thumb_dir = $img_dir . "/thumbs";
+
+        // Create folders if they don't exist
+        if (!file_exists($img_dir)) {
+            mkdir($img_dir, 0777, true);
+            mkdir($img_thumb_dir, 0777, true);
+        }
+$img = Request::file('files');
+        // Upload the image in the correct destination
+ $filename = md5(microtime() . $img->getClientOriginalName()) . "." . $img->getClientOriginalExtension();
+        $upload_success = $img->move($img_dir, $filename);
+
+        if ($upload_success) {
+            echo "b";die;
+        }
+    }
     public function postchangepassword()
     {
         //
@@ -152,7 +173,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         //
-        $data = User::find($id);
+         $data = User::find($id);
          return view('users.edit', ['user' => $data]);
     }
    
@@ -191,9 +212,12 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         //
+         $data = User::find($id);
+         $data->update( Request::all());         
+         return redirect('/user/list')->with('status', "User Updated  Successfully");
     }
     public function profile()
     {
