@@ -83,10 +83,16 @@ Route::post('/confirm/','UsersController@confirmcode' );
 Route::get('/listuser/','UsersController@show' );
 Route::get('/registrationsuccess/','UsersController@registrationsuccess' );
 Route::resource('user','UsersController');
+Route::resource('image','ImageController');
 Route::group(['middleware' => 'auth'], function () {
+    Route::resource('user','UsersController');
+    
   Route::get('/user/list/','UsersController@show' );
+   Route::get('/images/imagesetting/','ImageController@imagesetting' );
+  Route::post('/images/imagesetting/','ImageController@store' );
   Route::get('/user/delete/{id}','UsersController@destroy' );
   Route::get('/user/edit/{id}','UsersController@edit' );
+  Route::get('/user/edit/{id}/{redirect}','UsersController@edit' );  
   Route::get('/user/changestatus/{cstatus}/{id}','UsersController@changestatus' );
   Route::get('/user/list/{type}','UsersController@show' );
   Route::get('/dashboard','AdminController@dashboard' );

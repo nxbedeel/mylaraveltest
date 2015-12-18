@@ -56,7 +56,7 @@ class UsersController extends Controller
     public function pupload(\Request $request){
         
       // Images destination
-        $img_dir = "uploads/images/" . date("mY");
+        $img_dir = "uploads/images";
         $img_thumb_dir = $img_dir . "/thumbs";
 
         // Create folders if they don't exist
@@ -64,14 +64,17 @@ class UsersController extends Controller
             mkdir($img_dir, 0777, true);
             mkdir($img_thumb_dir, 0777, true);
         }
-$img = Request::file('files');
+        $img = Request::file('file');
         // Upload the image in the correct destination
- $filename = md5(microtime() . $img->getClientOriginalName()) . "." . $img->getClientOriginalExtension();
+        $filename = md5(microtime() . $img->getClientOriginalName()) . "." . $img->getClientOriginalExtension();
         $upload_success = $img->move($img_dir, $filename);
+        
+        $userDate = Auth::user();
+        $data = User::get()->where('id', $userDate->id)->first();
+        $data->profile_image = $filename;
+         $data->save();
 
-        if ($upload_success) {
-            echo "b";die;
-        }
+         return redirect('/profile')->with('status', "Image Uploaded  Successfully");
     }
     public function postchangepassword()
     {
@@ -170,9 +173,8 @@ $img = Request::file('files');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$redirect="")
     {
-        //
          $data = User::find($id);
          return view('users.edit', ['user' => $data]);
     }
