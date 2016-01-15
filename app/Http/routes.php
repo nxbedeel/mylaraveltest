@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ $router->pattern('name', '[A-Za-z]+');
 | Here is we register basic default/ root route  of the application 
 |
 */
-//Route::get('/','WelcomeController@index' );
+Route::get('/','WelcomeController@index' );
 /*
 |--------------------------------------------------------------------------
 | Route to contcat with Diffetent ways   using GET
@@ -79,19 +79,40 @@ Route::get('/admin/dashboard/','AdminController@dashboard' );
 Route::post('/signup/','UsersController@store' );
 Route::post('/confirm/','UsersController@confirmcode' );
 
+Route::get('/images/listalbumimages/{id}','ImageController@listalbumimages' );
 
 Route::get('/listuser/','UsersController@show' );
 Route::get('/registrationsuccess/','UsersController@registrationsuccess' );
 Route::resource('user','UsersController');
 Route::resource('image','ImageController');
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('user','UsersController');
-    
+  Route::resource('user','UsersController');    
+  
   Route::get('/user/list/','UsersController@show' );
-   Route::get('/images/imagesetting/','ImageController@imagesetting' );
+  Route::get('/images/imagesetting/','ImageController@imagesetting' );
   Route::post('/images/imagesetting/','ImageController@store' );
+  Route::get('/images/upload/','ImageController@upload' );
+  Route::get('/images/list/{type}','ImageController@listimages' );  
+  Route::get('/images/list','ImageController@listimages' );
+  Route::get('/images/destroy/{id}/{type}','ImageController@destroy' );
+  Route::get('/images/destroy/{id}','ImageController@destroy' );
+  Route::any('/images/pupload/','ImageController@pupload' ); 
+  
+  Route::any('/images/uploadimages/','ImageController@uploadimages' );
+  
+  Route::get('/album/list/','AlbumController@listalbum' );
+  Route::get('/albumtype/list/','AlbumController@listtype' );
+  Route::get('/albumtype/create/','AlbumController@createtype' );
+  Route::get('/album/create/','AlbumController@create' );
+  Route::post('/album/create/','AlbumController@store' );
+  Route::get('/album/destroy/{id}','AlbumController@destroy' );
+  Route::get('/albumtype/delete/{id}','AlbumController@destroyType' );
+  Route::get('/albumtype/edit/{id}','AlbumController@edittype' );
+  Route::post('/albumtype/edit/{id}','AlbumController@updatetype' );
+  Route::post('/albumtype/create/','AlbumController@storetype' );
   Route::get('/user/delete/{id}','UsersController@destroy' );
   Route::get('/user/edit/{id}','UsersController@edit' );
+  Route::get('/users/edit','UsersController@edit' );
   Route::get('/user/edit/{id}/{redirect}','UsersController@edit' );  
   Route::get('/user/changestatus/{cstatus}/{id}','UsersController@changestatus' );
   Route::get('/user/list/{type}','UsersController@show' );
@@ -100,7 +121,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/home','AdminController@dashboard' );
   Route::get('/users/changepassword','UsersController@changepassword' );
   Route::post('/users/changepassword','UsersController@postchangepassword' );
-   Route::post('/users/pupload','UsersController@pupload' );
+  Route::post('/users/pupload','UsersController@pupload' );
 });
 
 post('auth/login', array('as' => 'login', 'uses' => 'Auth\AuthController@authenticate'));

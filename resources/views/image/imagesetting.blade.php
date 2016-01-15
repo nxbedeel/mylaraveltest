@@ -30,10 +30,16 @@
         </div>
      </div>
        <div class="form-group">
-   
-         @foreach ($setting->all_types as $c)
-            {!! Form::checkbox('typeallow[]', $c, in_array($c, $setting->types)) !!}{!! $c !!}
+         @foreach ($all_types as $c)
+           <div class="input-group">   
+               @if (count($setting) > 0)
+                 {!! Form::checkbox('typeallow[]', $c, in_array($c, $setting->types)) !!}{!! strtoupper($c) !!}
+               @else
+                 {!! Form::checkbox('typeallow[]', $c) !!}{!! strtoupper($c) !!}
+               @endif
+           </div>
          @endforeach
+  
      </div>
     <div class="form-group">
          {!! Form::submit('Update',['class'=>'btn btn-primary  ']) !!}

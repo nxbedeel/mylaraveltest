@@ -23,6 +23,7 @@
 
     {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user->id]]) !!}
     <div class="form-group">
+         {!! Form::hidden('redirect_url') !!}
          {!! Form::label('name','Name:') !!}         
         <div class="input-group">                        
             {!! Form::text('name',null,['class'=>'form-control','required','placeholder'=>'Enter Name ..']) !!}

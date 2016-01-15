@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/wamp/www/mylaraveltest/resources/views/album/list.blade.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/app/Http/Controllers/ImageController.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/app/Providers/AppServiceProvider.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/app/Http/routes.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/resources/views/errors/403.blade.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/app/Policies/ImagesPolicy.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/app/Images.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/resources/views/_album.blade.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/resources/views/image/listalbum.blade.php</file>
+            <file>file:/D:/wamp/www/mylaraveltest/app/Providers/AuthServiceProvider.php</file>
+        </group>
+    </open-files>
 </project-private>

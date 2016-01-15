@@ -11,7 +11,7 @@ class WelcomeController extends Controller {
      * @return Response
      */
     public function index(){
-        return "Adeel islam at Controller ";
+        return view('welcome');
     }
     public function contact($name=""){
        // exit ($name);

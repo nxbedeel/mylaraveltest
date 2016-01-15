@@ -42,6 +42,7 @@
         </tfoot>
         <tbody>
     @foreach ($users as $user)
+    
     <tr>
     <td>{{ $user->id }}</td>
     <td>{{ $user->name }}</td>
@@ -56,7 +57,7 @@
     <td>
         <a href="\user\delete\{{ $user->id }}" title="Delete User" ><i class="glyphicon glyphicon-trash"></i> Delete</a> |
         <a href="\user\edit\{{ $user->id }}" title="Edit User" ><i class="glyphicon glyphicon-edit"></i> Edit</a> |  
-        <a href="\user\edit\{{ $user->id }}" title="Edit User" ><i class="glyphicon glyphicon-eye-open"></i> View</a> |  
+<!--        <a href="\user\edit\{{ $user->id }}" title="Edit User" ><i class="glyphicon glyphicon-eye-open"></i> View</a> |  -->
         @if ($user->status === 1)
             <a href="\user\changestatus\Inactive\{{ $user->id }}" title="Inactive User" ><i class="glyphicon glyphicon-remove"></i> Inactive </a> |
         @else

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Images;
+use App\Album;
 
 class AdminController extends Controller
 {
@@ -68,7 +70,9 @@ class AdminController extends Controller
         
          $usercount = User::all()->count();
          $activecount = User::where('status', '=', 1)->count();
-        return view('admin.dashboard')->with(['usercount'=>$usercount,'activeuser'=>$activecount,'fname'=>'Muhammad Adeel ']);;
+         $imagescount = Images::all()->count();
+         $albumcount = Album::all()->count();
+        return view('admin.dashboard')->with(['imagescount'=>$imagescount,'albumcount'=>$albumcount,'usercount'=>$usercount,'activeuser'=>$activecount,'fname'=>'Muhammad Adeel ']);;
     }
     
     

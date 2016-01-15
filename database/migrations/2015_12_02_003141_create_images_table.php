@@ -20,12 +20,14 @@ class CreateImagesTable extends Migration
                 $table->string('name');
                 $table->string('size');
                 $table->string('title');
-                $table->string('tag');
                 $table->string('url');
+                $table->string('thumb_url');
                 $table->enum('status', ['Public','Private']);
                 $table->bigInteger('album_id')->unsigned();
+                $table->bigInteger('user_id')->unsigned();
                 $table->timestamps();
                 $table->foreign('album_id')->references('id')->on('albums');
+                $table->foreign('user_id')->references('id')->on('users');
             });
         }
     }

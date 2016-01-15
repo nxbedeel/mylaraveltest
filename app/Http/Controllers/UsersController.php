@@ -16,6 +16,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateUser;
 use App\Http\Requests\ConfirmUser;
 use App\Http\Requests\ChangePassword;
+use Redirect;
 //use App\Http\Requests\User;
 
 use Illuminate\Validation;
@@ -76,6 +77,14 @@ class UsersController extends Controller
 
          return redirect('/profile')->with('status', "Image Uploaded  Successfully");
     }
+    
+    /**
+     * Used to sate changed password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    
     public function postchangepassword()
     {
         //
@@ -173,9 +182,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,$redirect="")
+    public function edit($id="",$redirect="")
     {
-         $data = User::find($id);
+        $data = array();
+        if($id==""){
+            $userDate = Auth::user();
+            $data = User::find($userDate->id);
+            $data['redirect_url'] = "/profile";
+        }else{
+            $data = User::find($id);
+            $data['redirect_url'] = "/user/list";
+        }
+        
          return view('users.edit', ['user' => $data]);
     }
    
@@ -201,10 +219,7 @@ class UsersController extends Controller
         }  else {
             $data->status = 1;
             $data->save();
-            
-//            Session::put('userinfo', $data);
             return redirect('/auth/login')->with('status', "User is created  successfully please login here and get startes ");
-            //exit ("validated successfully");
         }
     }
     /**
@@ -218,12 +233,15 @@ class UsersController extends Controller
     {
         //
          $data = User::find($id);
-         $data->update( Request::all());         
-         return redirect('/user/list')->with('status', "User Updated  Successfully");
+         $input = Request::all();
+         $redirect = $input['redirect_url'];
+         unset($input['redirect_url']);
+         $data->update();         
+      
+         return redirect($redirect)->with('status', "User Updated  Successfully");
     }
     public function profile()
     {
-        //
           $value = Auth::user();
           return view('users.profile', ['user' => $value]);
     }
@@ -237,19 +255,12 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $isdelete  = User::where('id', $id)->delete();
-        //if($isdelete){
-            return redirect('/user/list')->with('status', "User Removed  Successfully");
-       // }
-        
-        //
+         return redirect('/user/list')->with('status', "User Removed  Successfully");
     }
     
     public function changestatus($cstatus='',$id='')
     {
-//      /  exit ($id);
         $data = User::find($id);
-//        var_dump($data);
-//                exit ();
         if($cstatus=='Inactive'){
             $data->status = 0;
             $data->save();

@@ -115,7 +115,7 @@ $(document).ready(function(){
                     </tbody>
                   </table>
                     <div id="edituser"></div> 
-                  <a href="#" id ="btneidtprofileimage" class="btn btn-primary">Edit Profile</a>
+                  <a href="/users/edit" id ="btneidtprofileimage" class="btn btn-primary">Edit Profile</a>
                    <a href="#" id ="eidtprofileimage" class="btn btn-primary">Edit Profile Image</a>
                   <a href="#" class="btn btn-primary">My Public Pictures</a>
                   <a href="#" class="btn btn-primary">My Private Pictures</a>

@@ -11,7 +11,7 @@
                 </div>
                  
                 <!-- /.col-lg-12 -->
-           
+         <div class="row">  
             @if (session('status'))
                 <div class="row">
                     <div class="alert alert-success">
@@ -19,6 +19,17 @@
                     </div>
                  </div>    
                 @endif
+                 @if (count($errors) > 0)
+   
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+         </div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -73,8 +84,8 @@
                                     <i class="fa fa-shopping-cart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Orders!</div>
+                                    <div class="huge">{{ $imagescount }}</div>
+                                    <div>Total images!</div>
                                 </div>
                             </div>
                         </div>
@@ -95,8 +106,8 @@
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
+                                    <div class="huge">{{ $albumcount }}</div>
+                                    <div>Total Album</div>
                                 </div>
                             </div>
                         </div>

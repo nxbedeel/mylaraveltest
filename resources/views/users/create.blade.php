@@ -3,19 +3,6 @@
 <?php echo "My Image galary Sign up page " ?>
 @stop
 @section('container')   
- <nav class="navbar navbar-default">
-        <div class="container-fluid">
-                <div class="navbar-header">
-                  <a class="navbar-brand" href="#">Image gallery</a>
-                </div>
-                <div>
-                  <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Home</a></li>
-                    <li><a href="/auth/login">login</a></li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
     <div class="jumbotron">
     <h2 style="border-bottom: 1px solid #c5c5c5;">
     <i class="glyphicon glyphicon-user">
@@ -35,6 +22,7 @@
     {!! Form::open() !!}
     <div class="form-group">
          {!! Form::label('name','Name:') !!}         
+        
         <div class="input-group">                        
             {!! Form::text('name',null,['class'=>'form-control','required','placeholder'=>'Enter Name ..']) !!}
             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
